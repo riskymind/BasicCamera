@@ -22,6 +22,7 @@ import java.io.IOException
 class CameraPreviewActivity : AppCompatActivity() {
 
     private var camera: Camera? = null
+    private var cameraInfo: Camera.CameraInfo? = null
 
     companion object {
         const val TAG = "CameraPreviewActivity"
@@ -29,11 +30,14 @@ class CameraPreviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Open an instance of the first camera and retrieve its info.
         camera = getCameraInstance(CAMERA_ID)
-        val cameraInfo = Camera.CameraInfo()
+        cameraInfo = Camera.CameraInfo()
         Camera.getCameraInfo(CAMERA_ID, cameraInfo)
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         if (camera == null) {
             // Camera not available, display error message
